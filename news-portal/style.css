@@ -48,10 +48,20 @@ a:hover { text-decoration: underline; }
 
 /* Navigation */
 .menu-toggle { display: none; background: none; border: 1px solid var(--color-border); padding: 0.5rem 0.75rem; border-radius: 6px; }
-.primary-navigation { display: flex; gap: 1rem; align-items: center; }
+.primary-navigation { display: flex; gap: 1rem; align-items: center; position: relative; }
 .primary-navigation ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1rem; }
+.primary-navigation li { position: relative; }
 .primary-navigation a { display: block; padding: 0.5rem 0.25rem; border-radius: 4px; }
-.primary-navigation a:hover { background: #f3f4f6; text-decoration: none; }
+.primary-navigation a:hover, .primary-navigation a:focus { background: #f3f4f6; text-decoration: none; }
+.primary-navigation .submenu-toggle { background: none; border: none; padding: 0 0.25rem; margin-left: 0.25rem; line-height: 1; cursor: pointer; }
+.primary-navigation .submenu-toggle .chevron { display: inline-block; transition: transform .2s ease; }
+.primary-navigation li.submenu-open > .submenu-toggle .chevron { transform: rotate(180deg); }
+.primary-navigation .sub-menu { position: absolute; left: 0; top: 100%; min-width: 220px; background: #fff; border: 1px solid var(--color-border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: none; padding: 0.5rem; z-index: 50; }
+.primary-navigation .sub-menu li { width: 100%; }
+.primary-navigation .sub-menu a { padding: 0.5rem 0.75rem; }
+.primary-navigation li:hover > .sub-menu,
+.primary-navigation li:focus-within > .sub-menu,
+.primary-navigation li.submenu-open > .sub-menu { display: block; }
 
 /* Layout */
 .site-content { padding: 1.25rem 0; }
@@ -108,6 +118,10 @@ a:hover { text-decoration: underline; }
 @media (max-width: 768px) {
   .primary-navigation { display: none; }
   .primary-navigation.open { display: block; }
+  .primary-navigation ul { display: block; }
+  .primary-navigation li { position: static; }
+  .primary-navigation .sub-menu { position: static; display: none; border: 0; box-shadow: none; padding-left: 0.75rem; }
+  .primary-navigation li.submenu-open > .sub-menu { display: block; }
   .menu-toggle { display: inline-block; }
   .footer-widgets { grid-template-columns: 1fr; }
 }

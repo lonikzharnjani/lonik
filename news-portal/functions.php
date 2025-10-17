@@ -103,3 +103,26 @@ function news_portal_scripts() {
 }
 add_action('wp_enqueue_scripts', 'news_portal_scripts');
 
+/**
+ * Accessible submenu toggles for primary navigation.
+ */
+function news_portal_add_menu_aria($atts, $item, $args, $depth) {
+    if (($args->theme_location ?? '') === 'primary' && in_array('menu-item-has-children', (array) ($item->classes ?? []), true)) {
+        $atts['aria-haspopup'] = 'true';
+        $atts['aria-expanded'] = 'false';
+    }
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'news_portal_add_menu_aria', 10, 4);
+
+function news_portal_append_submenu_toggle($item_output, $item, $depth, $args) {
+    if (($args->theme_location ?? '') === 'primary' && in_array('menu-item-has-children', (array) ($item->classes ?? []), true)) {
+        $button  = '<button class="submenu-toggle" aria-expanded="false" aria-label="' . esc_attr__('Toggle submenu', 'news-portal') . '">';
+        $button .= '<span class="chevron" aria-hidden="true">▾</span>';
+        $button .= '</button>';
+        $item_output .= $button;
+    }
+    return $item_output;
+}
+add_filter('walker_nav_menu_start_el', 'news_portal_append_submenu_toggle', 10, 4);
+
