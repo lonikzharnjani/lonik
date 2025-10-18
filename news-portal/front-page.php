@@ -41,6 +41,10 @@ get_header(); ?>
     </div>
   </section>
 
+  <section class="featured-section">
+    <?php echo do_shortcode('[news_portal_slider posts="5" interval="5000"]'); ?>
+  </section>
+
   <div class="content-grid">
     <div>
       <h2><?php esc_html_e('Latest', 'news-portal'); ?></h2>

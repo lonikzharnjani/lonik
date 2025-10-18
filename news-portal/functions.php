@@ -126,3 +126,62 @@ function news_portal_append_submenu_toggle($item_output, $item, $depth, $args) {
 }
 add_filter('walker_nav_menu_start_el', 'news_portal_append_submenu_toggle', 10, 4);
 
+/**
+ * Slider shortcode: [news_portal_slider posts="5" category="" interval="5000"]
+ */
+function news_portal_slider_shortcode($atts) {
+    $atts = shortcode_atts([
+        'posts'    => 5,
+        'category' => '',
+        'interval' => 5000,
+    ], $atts, 'news_portal_slider');
+
+    $query_args = [
+        'posts_per_page'      => (int) $atts['posts'],
+        'ignore_sticky_posts' => 1,
+    ];
+    if (!empty($atts['category'])) {
+        $query_args['category_name'] = sanitize_text_field($atts['category']);
+    }
+
+    $q = new WP_Query($query_args);
+    if (!$q->have_posts()) {
+        return '';
+    }
+
+    // Unique id per slider instance
+    $slider_id = 'np-slider-' . wp_generate_uuid4();
+
+    ob_start();
+    ?>
+    <div class="np-slider" id="<?php echo esc_attr($slider_id); ?>" data-interval="<?php echo esc_attr((int) $atts['interval']); ?>">
+      <div class="np-slider-track">
+        <?php while ($q->have_posts()) : $q->the_post(); ?>
+          <article class="np-slide">
+            <a class="np-slide-media" href="<?php the_permalink(); ?>">
+              <?php if (has_post_thumbnail()) { the_post_thumbnail('news-featured'); } ?>
+            </a>
+            <div class="np-slide-content">
+              <?php
+              $categories = get_the_category();
+              if (!empty($categories)) {
+                  echo '<span class="post-category">' . esc_html($categories[0]->name) . '</span>';
+              }
+              ?>
+              <h3 class="np-slide-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+              <div class="post-meta">
+                <time datetime="<?php echo esc_attr(get_the_date('c')); ?>"><?php echo esc_html(get_the_date()); ?></time>
+              </div>
+            </div>
+          </article>
+        <?php endwhile; wp_reset_postdata(); ?>
+      </div>
+      <button class="np-slider-prev" aria-label="<?php esc_attr_e('Previous slide', 'news-portal'); ?>">&#10094;</button>
+      <button class="np-slider-next" aria-label="<?php esc_attr_e('Next slide', 'news-portal'); ?>">&#10095;</button>
+      <div class="np-slider-dots" aria-hidden="true"></div>
+    </div>
+    <?php
+    return trim(ob_get_clean());
+}
+add_shortcode('news_portal_slider', 'news_portal_slider_shortcode');
+
