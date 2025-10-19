@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News Portal - Slider Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo">Your News Portal</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2 class="section-title">Top Stories</h2>
+
+      <div class="news-slider" data-autoplay="true" data-interval="4500" data-pause-on-hover="true">
+        <div class="slider-track">
+          <!-- Slide 1 -->
+          <article class="slide" data-title="Global Markets Rally" data-category="Business">
+            <a class="slide-link" href="#">
+              <div class="media">
+                <img src="https://images.unsplash.com/photo-1518186233392-c232efbf2373?q=80&w=1600&auto=format&fit=crop" alt="Global Markets Rally" />
+              </div>
+              <div class="content">
+                <span class="badge">Business</span>
+                <h3 class="headline">Global Markets Rally as Earnings Beat Expectations</h3>
+                <p class="excerpt">Stocks surge worldwide following upbeat quarterly results from major tech and manufacturing firms.</p>
+              </div>
+            </a>
+          </article>
+
+          <!-- Slide 2 -->
+          <article class="slide" data-title="Breakthrough in AI" data-category="Technology">
+            <a class="slide-link" href="#">
+              <div class="media">
+                <img src="https://images.unsplash.com/photo-1551281044-8b39f77df6ad?q=80&w=1600&auto=format&fit=crop" alt="Breakthrough in AI" />
+              </div>
+              <div class="content">
+                <span class="badge badge-tech">Technology</span>
+                <h3 class="headline">New AI Model Sets Record in Language Understanding</h3>
+                <p class="excerpt">Researchers unveil a cutting-edge architecture that improves reasoning and context retention.</p>
+              </div>
+            </a>
+          </article>
+
+          <!-- Slide 3 -->
+          <article class="slide" data-title="Climate Summit" data-category="World">
+            <a class="slide-link" href="#">
+              <div class="media">
+                <img src="https://images.unsplash.com/photo-1502303756787-90e2041b56b2?q=80&w=1600&auto=format&fit=crop" alt="Climate Summit" />
+              </div>
+              <div class="content">
+                <span class="badge badge-world">World</span>
+                <h3 class="headline">Global Climate Summit Reaches Landmark Agreement</h3>
+                <p class="excerpt">Nations commit to accelerated emissions cuts and green investment strategies.</p>
+              </div>
+            </a>
+          </article>
+
+          <!-- Slide 4 -->
+          <article class="slide" data-title="Championship Final" data-category="Sports">
+            <a class="slide-link" href="#">
+              <div class="media">
+                <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1600&auto=format&fit=crop" alt="Championship Final" />
+              </div>
+              <div class="content">
+                <span class="badge badge-sports">Sports</span>
+                <h3 class="headline">Underdogs Triumph in Thrilling Championship Final</h3>
+                <p class="excerpt">A dramatic comeback stuns fans as the team clinches victory in extra time.</p>
+              </div>
+            </a>
+          </article>
+        </div>
+
+        <!-- Controls -->
+        <button class="nav prev" aria-label="Previous slide">&#10094;</button>
+        <button class="nav next" aria-label="Next slide">&#10095;</button>
+
+        <div class="dots" aria-label="Slide pagination"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./assets/slider.js"></script>
+</body>
+</html>
